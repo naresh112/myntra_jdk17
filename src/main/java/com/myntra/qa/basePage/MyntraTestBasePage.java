@@ -10,6 +10,7 @@ import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -38,7 +39,13 @@ public class MyntraTestBasePage {
 		if(browserType==null) {
 			browserType = prop.getProperty("browserEnvType");
 		}
-		if (prop.getProperty("browser").equals("chrome")) {
+		String browser = System.getProperty("browser");
+		if(browser==null) {
+			browser = prop.getProperty("browser");
+		}
+		System.out.println("browser environment type is >>>"+browserType);
+		System.out.println("browser name is >>>"+browser);
+		if (browser.equals("chrome")) {
 			if (browserType.equals("remote")) {
 				DesiredCapabilities caps = new DesiredCapabilities();
 				caps.setBrowserName("chrome");
@@ -47,9 +54,12 @@ public class MyntraTestBasePage {
 			} else {
 				driver = new ChromeDriver();
 			}
-		} else if (prop.getProperty("browser").equals("firefox")) {
+		} else if (browser.equals("firefox")) {
 			driver = new FirefoxDriver();
-		} else if (prop.getProperty("browser").equals("internetExplorer")) {
+		}else if (browser.equals("edge")) {
+			driver = new EdgeDriver();
+		}
+		else if (browser.equals("internetExplorer")) {
 			System.out.println(prop.getProperty("browser"));
 			driver = new InternetExplorerDriver();
 		}
