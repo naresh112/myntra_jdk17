@@ -34,8 +34,12 @@ public class MyntraTestBasePage {
 	}
 
 	public WebDriver intilizeDriver() throws MalformedURLException {
+		String browserType = System.getProperty("BrowserType");
+		if(browserType==null) {
+			browserType = prop.getProperty("browserEnvType");
+		}
 		if (prop.getProperty("browser").equals("chrome")) {
-			if (prop.getProperty("browserEnvType").equals("remote")) {
+			if (browserType.equals("remote")) {
 				DesiredCapabilities caps = new DesiredCapabilities();
 				caps.setBrowserName("chrome");
 				caps.setPlatform(Platform.WIN10);
